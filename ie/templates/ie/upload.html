@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}CSV Upload{% endblock title %}
+
+{% block body %}
+
+    <section class="text-gray-600 body-font">
+        <div class="container px-5 py-24 mx-auto">
+            <div class="lg:w-2/3 flex flex-col sm:flex-row sm:items-center items-start mx-auto">
+                
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="flex-grow sm:pr-16 text-2xl font-medium title-font text-gray-900 mb-20">
+                        {{ form.as_p}}
+                    </div>
+                    <button
+                        type='submit' 
+                        class="flex-shrink-0 text-white bg-gray-900 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg mt-10 sm:mt-0 ml-5 shadow-lg"
+                    >
+                        Upload
+                    </button>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+{% endblock body %}
