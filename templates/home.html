@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock title %}
+
+{% block body %}
+
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-wrap -mx-4 -mb-10 text-center">
+      <div class="sm:w-1/2 mb-10 px-4">
+        <a href="{% url 'ie:upload' %}">
+          <div class="rounded-lg h-64 overflow-hidden">
+            <img alt="content" class="object-cover object-center h-full w-full object-fill" src="{% static 'img/upload.svg' %}">
+          </div>
+          <h2 class="title-font text-2xl font-medium text-gray-900 mt-6 mb-3 ">Update customers</h2>
+        </a>
+      </div>
+      <div class="sm:w-1/2 mb-10 px-4">
+        <a href="{% url 'ie:view' %}">
+          <div class="rounded-lg h-64 overflow-hidden">
+            <img alt="content" class="object-cover object-center h-full w-full object-fill" src="{% static 'img/pyramid.svg' %}">
+          </div>
+          <h2 class="title-font text-2xl font-medium text-gray-900 mt-6 mb-3 ">Inspect customers</h2>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock body %}
