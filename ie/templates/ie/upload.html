@@ -5,24 +5,35 @@
 {% block body %}
 
     <section class="text-gray-600 body-font">
+      
         <div class="container px-5 py-24 mx-auto">
-            <div class="lg:w-2/3 flex flex-col sm:flex-row sm:items-center items-start mx-auto">
-                
-                <form method="post" enctype="multipart/form-data">
+            <div class="text-center mb-20">
+                <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">Local Upload</h1>
+                <p class="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">Click below to upload and import</p>
+            </div>
+            <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <div class="flex-grow sm:pr-16 text-2xl font-medium title-font text-gray-900 mb-20">
+                    <div class="text-center mb-20">
                         {{ form.as_p}}
                     </div>
-                    <button
-                        type='submit' 
-                        class="flex-shrink-0 text-white bg-gray-900 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg mt-10 sm:mt-0 ml-5 shadow-lg"
-                    >
+                    <button type='submit' class="flex mx-auto mt-16 text-white bg-gray-900 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg shadow-lg">
                         Upload
                     </button>
-
-                </form>
-            </div>
+            </form>
         </div>
+
+        <div class="container px-5 py-24 mx-auto">
+            <div class="text-center mb-20">
+                <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">Upload from ftp</h1>
+                <p class="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">Or check the fpt and upgrade the customers</p>
+            </div>
+            <a href="{% url 'ie:remoteimport' %}">
+                <button class="flex mx-auto mt-16 text-white bg-gray-900 border-0 py-2 px-8 focus:outline-none hover:bg-gray-600 rounded text-lg shadow-lg">
+                Check
+                </button>
+            </a>
+        </div>
+
     </section>
 
 {% endblock body %}
