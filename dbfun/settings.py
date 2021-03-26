@@ -31,7 +31,18 @@ INSTALLED_APPS = [
     'users',
     'mail',
     'phonenumber_field',
+    'djangomailup',
+
 ]
+
+MAILUP = {
+    "default": {
+        "client_id": "client_id",
+        "client_secret": "'djangomailup',",
+        "username": 'm139966',
+        "password": 'dtHzBi78FE7uFbd',
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
