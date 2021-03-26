@@ -19,20 +19,28 @@ class ImportView(LoginRequiredMixin, FormView):
 
         if form.is_valid():
             form.save()
-            origin_list = [form.instance.file.path]
+            origin_list = [ form.instance.file.path ]
             self.localImport(origin_list)
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
 
 
-    def localImport(request, origin_list):
-        functions.localImport(origin_list)
+    def localImport(request, origin_list): 
+        destination_obj = Cliente
 
+        try:
+            functions.localImport(origin_list, destination_obj)
+            return redirect('win')
+        except:
+            return redirect('fail')
 
     def remoteImport(request):
+        destination_obj = Cliente
+        local_register = PulledCsv
+        
         try:
-            functions.remoteImport()
+            functions.remoteImport(destination_obj, local_register)
             return render(request, 'opwin.html')
         except:
             return render(request, 'opfail.html')

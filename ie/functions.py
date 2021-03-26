@@ -3,6 +3,7 @@ import os
 import csv
 from . import settings
 from .models import Cliente
+from random import randint
 
 
 
@@ -38,53 +39,53 @@ def importCsv(origin_list, destination_obj):
 
 
 
-def ftpPull():
+def ftpPull(local_register):
     pulled_path_list = []
 
     ftp = ftplib.FTP(settings.FTP_SERVER)
-
-    ftp.login(user=settings.FTP_USER, passwd=settings.FTP_PASSWD)
-    gen_obj = ftp.mlsd()
-
-    print("il primo maialino")
+    
+    try:
+        ftp.login(user=settings.FTP_USER, passwd=settings.FTP_PASSWD)
+        gen_obj = ftp.mlsd()
+    except:
+        print('failed to comunicate with ftp')
 
     for generator in gen_obj:
-        print("for maialino")
         gen_name = generator[0]
         gen_dict = generator[1]
 
         if str(gen_name).startswith('table') and str(gen_name).endswith('.csv'):
-            print("if maialino")
-            obj, created = self.objects.get_or_create(
-                nome = gen_name,
-                caricato = gen_dict['modify'],
+            obj, created = local_register.objects.get_or_create(
+                name = gen_name,
+                timestamp = gen_dict['modify'],
             )
-            print("pif maialino")
+
             if created:
-                local_filename = 'table' + '_' + str(randint(100000000,999999999)) + '.csv'
-                local_filepath = 'media/' + local_filename
-                print("pre maialino")
-                pulled_path_list.append(local_filepath) 
-                print("post maialino")
 
-                with open(local_filepath, 'wb+') as local_file:
-                    file = ftp.retrbinary('RETR ' + gen_name, local_file.write)
+                try:
+                    local_filename = 'table' + '_' + str(randint(100000000,999999999)) + '.csv'
+                    local_filepath = 'media/' + local_filename
+                    pulled_path_list.append(local_filepath) 
 
-    print(pulled_path_list)
+                    with open(local_filepath, 'wb+') as local_file:
+                        file = ftp.retrbinary('RETR ' + gen_name, local_file.write)
+
+                except:
+                    print('Could not write the file localy, erasing the new entry + eventual data')
+                    os.remove(local_filepath)
+                    obj.delete
+                    
+
     ftp.quit()
     return pulled_path_list
 
 
 
-def localImport(origin_list):
-    destination_obj = Cliente
+def localImport(origin_list, destination_obj):
     importCsv(origin_list, destination_obj)
 
 
 
-def remoteImport():
-    destination_obj = Cliente
-    origin_list = ftpPull()
+def remoteImport(destination_obj, local_register):
+    origin_list = ftpPull(local_register)
     importCsv(origin_list, destination_obj)
-
-
