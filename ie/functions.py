@@ -54,18 +54,22 @@ def ftpPull():
         gen_dict = generator[1]
 
         if str(gen_name).startswith('table') and str(gen_name).endswith('.csv'):
+            print("if maialino")
             obj, created = self.objects.get_or_create(
                 nome = gen_name,
                 caricato = gen_dict['modify'],
             )
-
+            print("pif maialino")
             if created:
                 local_filename = 'table' + '_' + str(randint(100000000,999999999)) + '.csv'
                 local_filepath = 'media/' + local_filename
+                print("pre maialino")
                 pulled_path_list.append(local_filepath) 
+                print("post maialino")
 
                 with open(local_filepath, 'wb+') as local_file:
                     file = ftp.retrbinary('RETR ' + gen_name, local_file.write)
+
     print(pulled_path_list)
     ftp.quit()
     return pulled_path_list
