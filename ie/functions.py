@@ -46,7 +46,10 @@ def ftpPull():
     ftp.login(user=settings.FTP_USER, passwd=settings.FTP_PASSWD)
     gen_obj = ftp.mlsd()
 
+    print("il primo maialino")
+
     for generator in gen_obj:
+        print("for maialino")
         gen_name = generator[0]
         gen_dict = generator[1]
 
@@ -63,7 +66,7 @@ def ftpPull():
 
                 with open(local_filepath, 'wb+') as local_file:
                     file = ftp.retrbinary('RETR ' + gen_name, local_file.write)
-    
+    print(pulled_path_list)
     ftp.quit()
     return pulled_path_list
 
