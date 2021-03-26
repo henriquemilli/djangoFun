@@ -14,6 +14,7 @@ urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('', include('ie.urls', namespace='ie')),
     path('', include('users.urls', namespace='users')),
+    path('mail/', include('mail.urls', namespace='mail')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

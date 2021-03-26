@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     
     'ie',
     'users',
+    'mail',
     'phonenumber_field',
 ]
 
